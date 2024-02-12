@@ -12,19 +12,20 @@ public abstract class AbstractGame implements Game {
      public GameStatus gameStatus = GameStatus.INIT;
 
     @Override
-    public void start(Integer sizeWord, Integer tryCount) {
-        word = generateWord(sizeWord);
+    public void start(Integer sizeWord, Integer tryCount, Integer sort) {
+        word = generateWord(sizeWord, sort);
         this.tryCount = tryCount;
         gameStatus = GameStatus.START;
 
     }
 
-    private String generateWord(Integer sizeWord) {
+    private String generateWord(Integer sizeWord, Integer sort) {
         List<String> alphabet = generateCharList();
         Random rnd = new Random();
         String result = "";
         for (int i = 0; i < sizeWord; i++) {
-            int randomIndex = rnd.nextInt(alphabet.size());
+            int randomIndex;
+            randomIndex = rnd.nextInt(alphabet.size());
             result+=alphabet.get(randomIndex);
             alphabet.remove(randomIndex);
         }

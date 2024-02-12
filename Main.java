@@ -5,15 +5,25 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        AbstractGame ag = new NumberGame();
-        ag.start(3, 5);
+        System.out.println("Выберите режим игры и введите нужную цифру(1-цифры, 2-русские буквы, 3- английские буквы): ");
+        Scanner scanner = new Scanner(System.in);
+        int sort = scanner.nextInt();
+        AbstractGame ag = new NumberGame(sort);
+        ag.start(3, 5, sort);
+
+//        System.out.println("Выберите режим игры и введите нужную цифру(1-цифры, 2-русские буквы, 3- английские буквы): ");
+//        scanner = new Scanner(System.in);
+//        int sortingMethod = scanner.nextInt();
+
         System.out.println("Введите значения: ");
-        Scanner value = new Scanner(System.in);
+
         while (ag.getGameStatus().equals(GameStatus.START) || ag.getGameStatus().equals(GameStatus.RESTART)){
-            Answer answer = ag.inputValue(value.nextLine());
+
+            Answer answer = ag.inputValue(scanner.next());
             System.out.println(answer);
 
         }
+
         if(ag.getGameStatus().equals(GameStatus.WIN)){
             System.out.println("Вы победили!");
             ag.gameStatus = GameStatus.SET;
@@ -26,19 +36,18 @@ public class Main {
         }
         if(ag.getGameStatus().equals(GameStatus.SET)){
             System.out.println("Вы хотите посмотреть историю игры? Введите 1, если хотите посмотреть, 2 - если не хотите");
-            Scanner scr = new Scanner(System.in);
-            int game = scr.nextInt();
+//            scanner.next();
+            int game = scanner.nextInt();
             if(game == 1){
                 for(String history : ag.historyGame){
                     System.out.println(history);
                 }
             }
         System.out.println("Хотите перезапустить игру? Нажмите 1, если да");
-        Scanner rest = new Scanner(System.in);
-        int game1 = rest.nextInt();
+        int game1 = scanner.nextInt();
         if(game1 == 1){
             ag.gameStatus = GameStatus.START;
-            ag.start(3, 5);
+
 
         }else{
             System.out.println("Хорошо поиграли! До следующей встречи!");
